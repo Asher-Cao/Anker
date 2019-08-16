@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/Anker_DataExtraction.cpp
+stdio.h
+-
+stdlib.h
+-
+iostream
+-
+fstream
+-
+sstream
+-
+String
+-
+

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/HelloAnker.cpp
+iostream
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/iostream
+readankerdatafile.h
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/readankerdatafile.h
+
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/ankerdatatype.h
+
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/readankerdatafile.cpp
+readankerdatafile.h
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/readankerdatafile.h
+
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/readankerdatafile.h
+ankerdatatype.h
+/home/kdq/Workspace/Anker/anker_kdq_tools/anker_extraction/src/ankerdatatype.h
+iostream
+-
+fstream
+-
+vector
+-
+string
+-
+math.h
+-
+

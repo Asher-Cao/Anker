@@ -1,0 +1,8 @@
+prefix=/home/kdq/Workspace/Anker/catkin_ws/devel
+
+Name: AnkerDataPublish
+Description: Description of AnkerDataPublish
+Version: 0.0.0
+Cflags: -I/home/kdq/Workspace/Anker/catkin_ws/devel/include
+Libs: -L/home/kdq/Workspace/Anker/catkin_ws/devel/lib 
+Requires: message_runtime

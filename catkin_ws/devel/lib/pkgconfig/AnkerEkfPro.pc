@@ -1,0 +1,8 @@
+prefix=/home/kdq/Workspace/Anker/catkin_ws/devel
+
+Name: AnkerEkfPro
+Description: Description of AnkerEkfPro
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/kdq/Workspace/Anker/catkin_ws/devel/lib 
+Requires: 
