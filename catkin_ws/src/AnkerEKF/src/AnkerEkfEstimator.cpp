@@ -28,21 +28,12 @@ AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_no
   matrix.H(2,5) = -0.5f*wheel_distance;
   matrix.H(3,3) =  1.0f;
   matrix.H(3,5) =  0.5f*wheel_distance;
-  matrix.R = Eigen::MatrixXf::Zero(5,5);
-  matrix.R(0,0) = motion_noise.gyro_bias_noise;
-  matrix.R(1,1) = measue_noise.optical_vel_x_noise_q;
-  matrix.R(2,2) = measue_noise.optical_vel_y_noise_q;
-  matrix.R(3,3) = measue_noise.odometry_vel_l_noise_q;
-  matrix.R(4,4) = measue_noise.odometry_vel_r_noise_q;
-  matrix.M = Eigen::MatrixXf::Zero(4,5);
-  matrix.M(0,0) = -OpticalDistY;
-  matrix.M(0,1) =  1.0f;
-  matrix.M(1,0) = -OpticalDistX;
-  matrix.M(1,2) =  1.0f;
-  matrix.M(2,0) = -0.5f*wheel_distance;
-  matrix.M(2,3) =  1.0f;
-  matrix.M(3,0) =  0.5f*wheel_distance;
-  matrix.M(3,4) =  1.0f;
+  matrix.R = Eigen::MatrixXf::Zero(4,4);
+  matrix.R(0,0) = measue_noise.optical_vel_x_noise_q;
+  matrix.R(1,1) = measue_noise.optical_vel_y_noise_q;
+  matrix.R(2,2) = measue_noise.odometry_vel_l_noise_q;
+  matrix.R(3,3) = measue_noise.odometry_vel_r_noise_q;
+  matrix.M = Eigen::MatrixXf::Identity(4,4);
 
   matrix.P = 0.01*Eigen::MatrixXf::Identity(6,6);
 }
