@@ -17,7 +17,7 @@ struct ekf_matrix{
     Eigen::Matrix<float,6,6> Q;
     Eigen::Matrix<float,6,6> G;
     Eigen::Matrix<float,4,6> H;
-    Eigen::Matrix<float,4,4> R;
+    Eigen::Matrix<float,5,5> R;
     Eigen::Matrix<float,4,5> M;
 };
 struct ekf_motionNoise{
