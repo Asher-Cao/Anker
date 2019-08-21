@@ -437,6 +437,33 @@ _anker_ekf_pro_generate_messages_check_deps_AnkerDataType/fast:
 	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/_anker_ekf_pro_generate_messages_check_deps_AnkerDataType.dir/build.make AnkerEKF/CMakeFiles/_anker_ekf_pro_generate_messages_check_deps_AnkerDataType.dir/build
 .PHONY : _anker_ekf_pro_generate_messages_check_deps_AnkerDataType/fast
 
+src/AnkerEkfEstimator.o: src/AnkerEkfEstimator.cpp.o
+
+.PHONY : src/AnkerEkfEstimator.o
+
+# target to build an object file
+src/AnkerEkfEstimator.cpp.o:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/AnkerEkfEstimator.cpp.o
+.PHONY : src/AnkerEkfEstimator.cpp.o
+
+src/AnkerEkfEstimator.i: src/AnkerEkfEstimator.cpp.i
+
+.PHONY : src/AnkerEkfEstimator.i
+
+# target to preprocess a source file
+src/AnkerEkfEstimator.cpp.i:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/AnkerEkfEstimator.cpp.i
+.PHONY : src/AnkerEkfEstimator.cpp.i
+
+src/AnkerEkfEstimator.s: src/AnkerEkfEstimator.cpp.s
+
+.PHONY : src/AnkerEkfEstimator.s
+
+# target to generate assembly for a file
+src/AnkerEkfEstimator.cpp.s:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/AnkerEkfEstimator.cpp.s
+.PHONY : src/AnkerEkfEstimator.cpp.s
+
 src/anker.o: src/anker.cpp.o
 
 .PHONY : src/anker.o
@@ -522,6 +549,9 @@ help:
 	@echo "... _anker_ekf_pro_generate_messages_check_deps_AnkerDataType"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... src/AnkerEkfEstimator.o"
+	@echo "... src/AnkerEkfEstimator.i"
+	@echo "... src/AnkerEkfEstimator.s"
 	@echo "... src/anker.o"
 	@echo "... src/anker.i"
 	@echo "... src/anker.s"

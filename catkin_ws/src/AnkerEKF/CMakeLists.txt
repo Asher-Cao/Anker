@@ -48,6 +48,7 @@ catkin_package(
 add_executable(anker_ekf
     src/main.cpp
     src/anker.cpp
+    src/AnkerEkfEstimator.cpp
     )
 
 

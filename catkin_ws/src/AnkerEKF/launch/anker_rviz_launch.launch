@@ -1,0 +1,4 @@
+<launch>
+<node pkg="rviz" name="rviz" type="rviz" output="screen" args="-d $(find anker_ekf_pro)/launch/anker_rviz.rviz">
+</node>
+</launch>

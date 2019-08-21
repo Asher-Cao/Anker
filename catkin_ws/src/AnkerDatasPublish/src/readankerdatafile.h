@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
+#include <ros/ros.h>
 using namespace std;
 
 class ReadAnkerDataFile

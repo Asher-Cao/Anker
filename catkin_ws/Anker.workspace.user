@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.4.1, 2019-08-15T23:05:21. -->
+<!-- Written by QtCreator 4.4.1, 2019-08-21T15:44:17. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -107,7 +107,7 @@
      <value type="QString">PATH=/opt/ros/kinetic/bin:/home/kdq/.local/share/umake/bin:/home/kdq/bin:/home/kdq/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin</value>
      <value type="QString">PKG_CONFIG_PATH=/home/kdq/Workspace/Anker/catkin_ws/devel/lib/pkgconfig:/opt/ros/kinetic/lib/pkgconfig:/opt/ros/kinetic/lib/x86_64-linux-gnu/pkgconfig</value>
      <value type="QString">PWD=/home/kdq/Workspace/Anker/catkin_ws</value>
-     <value type="QString">PYTHONPATH=/opt/ros/kinetic/lib/python2.7/dist-packages</value>
+     <value type="QString">PYTHONPATH=/home/kdq/Workspace/Anker/catkin_ws/devel/lib/python2.7/dist-packages:/opt/ros/kinetic/lib/python2.7/dist-packages</value>
      <value type="QString">QTDIR</value>
      <value type="QString">ROSLISP_PACKAGE_DIRECTORIES=/home/kdq/Workspace/Anker/catkin_ws/devel/share/common-lisp</value>
      <value type="QString">ROS_DISTRO=kinetic</value>

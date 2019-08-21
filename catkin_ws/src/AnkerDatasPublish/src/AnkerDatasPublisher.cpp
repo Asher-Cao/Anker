@@ -11,11 +11,13 @@ int main(int argc,char** argv)
   ROS_INFO("AnkerDatasPublish Node Begin!");
   ros::Publisher ankerpublisher = n.advertise<anker_data_publish::AnkerDataType>("/anker_data_topic",10);
 
+  //std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/201908191207/";
+  std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/ankerdata_30m_trival/";
+  std::string imu_file = file_path +  "imu_file.cvs";
+  std::string odo_file = file_path + "odometer_file.cvs";
+  std::string opt_file = file_path + "optical_flow_file.cvs";
+  ROS_INFO("Datas come from file %s..",file_path.c_str());
 
-
-  std::string imu_file = "/home/kdq/Workspace/Anker/anker_kdq_tools/ankerdata_30m_trival/imu_file.cvs";
-  std::string odo_file = "/home/kdq/Workspace/Anker/anker_kdq_tools/ankerdata_30m_trival/odometer_file.cvs";
-  std::string opt_file = "/home/kdq/Workspace/Anker/anker_kdq_tools/ankerdata_30m_trival/optical_flow_file.cvs";
   ReadAnkerDataFile AnkerDatas(imu_file,odo_file,opt_file);
   int num = AnkerDatas.AnkerDataSet.size();
   if(num ==0)
@@ -30,7 +32,7 @@ int main(int argc,char** argv)
       break;
 
 
-  ros::Rate loop_rate(100);
+  ros::Rate loop_rate(400);
   while(ros::ok() && i<num)
   {
     i++;
