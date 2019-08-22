@@ -32,14 +32,17 @@ protected:
   ros::Subscriber anker_data_subscriber;
   ros::Publisher anker_path_ekf_publisher;
   ros::Publisher anker_path_odometry_publisher;
+  ros::Publisher anker_path_tmp_publisher;
   nav_msgs::Path path_ekf;
   nav_msgs::Path path_odometry;
+  nav_msgs::Path path_tmp;
   bool initial_flg;
   AnkerEkfEstimator *anker_ekf_estimator;
 private:
   AnkerDataType cur_data;
   AnkerDataType last_data;
   AnkerPose anker_pose;
+  AnkerPose tmp_pose;
 
 };
 

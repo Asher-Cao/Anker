@@ -5,6 +5,7 @@ Anker::Anker(std::string str):anker_str(str)
   anker_data_subscriber = node.subscribe("/anker_data_topic",10,&Anker::ankerDataCallback,this);
   anker_path_ekf_publisher = node.advertise<nav_msgs::Path>("path_ekf", 1000);
   anker_path_odometry_publisher = node.advertise<nav_msgs::Path>("path_odometry", 1000);
+  anker_path_tmp_publisher = node.advertise<nav_msgs::Path>("path_tmp", 1000);
 
   anker_pose.w_bais = 0;
   anker_pose.euler_rad << 0,0,0;
@@ -14,6 +15,9 @@ Anker::Anker(std::string str):anker_str(str)
   anker_pose.euler2quaternion();
   anker_pose.opt_angle = atan2(OpticalDistY,OpticalDistX);
   anker_pose.opt_length = sqrt(OpticalDistX*OpticalDistX + OpticalDistY*OpticalDistY);
+
+  tmp_pose.position << 0,0,0;
+  tmp_pose.euler_rad << 0,0,0;
 
   initial_flg = true;
 }
@@ -98,11 +102,11 @@ void Anker::ankerMotionPropagate()
   // z -- up
   float delta_left = cur_data.Odometry_pos[0] - last_data.Odometry_pos[0];
   float delta_right = cur_data.Odometry_pos[1] - last_data.Odometry_pos[1];
-  float delta_yaw = (delta_right - delta_left)/wheel_distance;
-//  float delta_time_s = cur_data.time_s - last_data.time_s;
-//  float delta_yaw= (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
+  float delta_yaw_1 = (delta_right - delta_left)/wheel_distance;
 
-  anker_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw);
+
+
+  anker_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw_1);
   anker_pose.euler2matrix();
   anker_pose.euler2quaternion();
   float delta_pos = 0.5f*(cur_data.Odometry_pos[0] + cur_data.Odometry_pos[1] - last_data.Odometry_pos[0] - last_data.Odometry_pos[1]);
@@ -110,6 +114,13 @@ void Anker::ankerMotionPropagate()
   anker_pose.position[1] +=  delta_pos*sin(anker_pose.euler_rad[2]);
 
 
+  float delta_time_s = cur_data.time_s - last_data.time_s;
+  float delta_yaw_2 = (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
+  tmp_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw_2);
+  tmp_pose.euler2matrix();
+  tmp_pose.euler2quaternion();
+  tmp_pose.position[0] +=  delta_pos*cos(tmp_pose.euler_rad[2]);
+  tmp_pose.position[1] +=  delta_pos*sin(tmp_pose.euler_rad[2]);
   // this is for comparision between odometry yaw and imu yaw
   //  float delta_time_s = cur_data.time_s - last_data.time_s;
   //  anker_pose.euler_rad[0] += (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
@@ -186,6 +197,20 @@ void Anker::publishPath()
   path_odometry.header.frame_id = "world";
   path_odometry.poses.push_back(pose_stamped);
   anker_path_odometry_publisher.publish(path_odometry);
+
+
+  geometry_msgs::PoseStamped tmp_pose_stamped;
+  tmp_pose_stamped.header.frame_id = "world";
+  tmp_pose_stamped.pose.position.x = tmp_pose.position[0];
+  tmp_pose_stamped.pose.position.y = tmp_pose.position[1];
+  tmp_pose_stamped.pose.position.z = tmp_pose.position[2];
+  tmp_pose_stamped.pose.orientation.x = tmp_pose.q.x();
+  tmp_pose_stamped.pose.orientation.y = tmp_pose.q.y();
+  tmp_pose_stamped.pose.orientation.z = tmp_pose.q.z();
+  tmp_pose_stamped.pose.orientation.w = tmp_pose.q.w();
+  path_tmp.header.frame_id = "world";
+  path_tmp.poses.push_back(tmp_pose_stamped);
+  anker_path_tmp_publisher.publish(path_tmp);
 
 
   geometry_msgs::PoseStamped pose_stamped_tmp;
