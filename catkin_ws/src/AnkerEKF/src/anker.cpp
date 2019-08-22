@@ -39,6 +39,7 @@ void Anker::ankerDataCallback(const anker_ekf_pro::AnkerDataType ankerdata_msg)
   {
 
     ankerMotionPropagate();
+    //ankerMotionPropagateFromOptical();
     if(anker_ekf_estimator)
     {
       float delta_time_s = cur_data.time_s - last_data.time_s;
@@ -60,8 +61,8 @@ void Anker::constructAnkerEkfEstimator()
   _state.w_bias = anker_pose.w_bais;
   ekf_motionNoise _motion_noise;
   _motion_noise.body_vel_noise = 0.04f;
-  _motion_noise.gyro_noise = 0.01f;
-  _motion_noise.gyro_bias_noise = 0.01f;
+  _motion_noise.gyro_noise = gyro_z_noise_density;
+  _motion_noise.gyro_bias_noise = gyro_z_noise_random_walk;
   ekf_measurementNoise _measurement_noise;
   _measurement_noise.odometry_vel_l_noise_q = 0.001f;
   _measurement_noise.odometry_vel_r_noise_q = 0.001f;
@@ -140,13 +141,16 @@ void Anker::ankerMotionPropagate()
 void Anker::ankerMotionPropagateFromOptical()
 {
   //  static float sum_length =0,sum_length_from_imu=0;
-  float delta_time_s = cur_data.time_s - last_data.time_s;
-  float v_x = (cur_data.Optical_pos[0] - last_data.Optical_pos[0])/delta_time_s;
-  float v_y = (cur_data.Optical_pos[1] - last_data.Optical_pos[1])/delta_time_s;
-  float v_x_w_d = (cur_data.Gyro[2] - anker_pose.w_bais)*OpticalDistX;
-  float v_y_w_d = (cur_data.Gyro[2] - anker_pose.w_bais)*OpticalDistY;
-  ROS_WARN("v_x     = %f    v_y     = %f",v_x,v_y);
-  ROS_WARN("v_x_w_d = %f    v_y_w_d = %f",v_x_w_d,v_y_w_d);
+ // float delta_time_s = cur_data.time_s - last_data.time_s;
+  float delta_x = cur_data.Optical_pos[0] - last_data.Optical_pos[0];
+ // float delta_y = cur_data.Optical_pos[1] - last_data.Optical_pos[1];
+  float delta_left = cur_data.Odometry_pos[0] - last_data.Odometry_pos[0];
+  float delta_right = cur_data.Odometry_pos[1] - last_data.Odometry_pos[1];
+  float delta_yaw = (delta_right - delta_left)/wheel_distance;
+  float delta_pose = delta_x + delta_yaw*OpticalDistX;
+  anker_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw);
+  anker_pose.position_opt[0] += delta_pose*cos(anker_pose.euler_rad[2]);
+  anker_pose.position_opt[1] += delta_pose*sin(anker_pose.euler_rad[2]);
   /*
   float delta_x = cur_data.Optical_pos[0] - last_data.Optical_pos[0];
   float delta_y = cur_data.Optical_pos[1] - last_data.Optical_pos[1];

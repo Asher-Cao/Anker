@@ -8,9 +8,9 @@ AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_no
   matrix.F(4,5) = -1.0f;
 
   matrix.Q = Eigen::MatrixXf::Zero(3,3);
-  matrix.Q(0,0) = motion_noise.body_vel_noise;
-  matrix.Q(1,1) = motion_noise.gyro_noise;
-  matrix.Q(2,2) = motion_noise.gyro_bias_noise;
+  matrix.Q(0,0) = motion_noise.body_vel_noise*motion_noise.body_vel_noise;
+  matrix.Q(1,1) = motion_noise.gyro_noise*motion_noise.gyro_noise;
+  matrix.Q(2,2) = motion_noise.gyro_bias_noise*motion_noise.gyro_bias_noise;
   matrix.G = Eigen::MatrixXf::Zero(6,3);
   matrix.G(3,0) = 1.0f;
   matrix.G(4,1) = 1.0f;
@@ -23,8 +23,8 @@ AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_no
   matrix.H(1,3) =  1.0f;
   matrix.H(1,4) =  0.5f*wheel_distance;
   matrix.R = Eigen::MatrixXf::Zero(2,2);
-  matrix.R(0,0) = measue_noise.odometry_vel_l_noise_q;
-  matrix.R(1,1) = measue_noise.odometry_vel_r_noise_q;
+  matrix.R(0,0) = measue_noise.odometry_vel_l_noise_q*measue_noise.odometry_vel_l_noise_q;
+  matrix.R(1,1) = measue_noise.odometry_vel_r_noise_q*measue_noise.odometry_vel_r_noise_q;
   matrix.M = Eigen::MatrixXf::Identity(2,2);
 
   matrix.P = 0.01*Eigen::MatrixXf::Identity(6,6);

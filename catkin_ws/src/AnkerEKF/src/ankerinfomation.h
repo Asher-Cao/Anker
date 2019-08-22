@@ -6,10 +6,13 @@
 #define wheel_distance 0.2063f
 #define ImuDistX  0.1205f;
 #define ImuDistY  0.0103f;
-#define OpticalDistX 0.101f
-#define OpticalDistY 0.087f
+#define OpticalDistX 0.087f
+#define OpticalDistY 0.101f
+
 #define rad2deg  57.29578f
 #define deg2rad  0.017453292f
+#define gyro_z_noise_density  0.00014467f
+#define gyro_z_noise_random_walk    0.00000413f
 
 struct AnkerDataType
 {
