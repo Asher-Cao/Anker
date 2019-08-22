@@ -7,33 +7,26 @@ struct ekf_state
     float w_px;
     float w_py;
     float yaw;
-    float b_vx;
-    float b_vy;
+    float b_v;
+    float w;
     float w_bias;
 };
 struct ekf_matrix{
     Eigen::Matrix<float,6,6> P;
     Eigen::Matrix<float,6,6> F;
-    Eigen::Matrix<float,6,6> Q;
-    Eigen::Matrix<float,6,6> G;
-    Eigen::Matrix<float,4,6> H;
-    Eigen::Matrix<float,4,4> R;
-    Eigen::Matrix<float,4,4> M;
+    Eigen::Matrix<float,3,3> Q;
+    Eigen::Matrix<float,6,3> G;
+    Eigen::Matrix<float,2,6> H;
+    Eigen::Matrix<float,2,2> R;
+    Eigen::Matrix<float,2,2> M;
 };
 struct ekf_motionNoise{
-    float pos_x_noise;
-    float pos_y_noise;
-    float vel_x_noise;
-    float vel_y_noise;
+    float body_vel_noise;
     float gyro_noise;
     float gyro_bias_noise;
-
 };
 struct ekf_measurementNoise
 {
-    float gyro_bias_noise;
-    float optical_vel_x_noise_q;
-    float optical_vel_y_noise_q;
     float odometry_vel_l_noise_q;
     float odometry_vel_r_noise_q;
 };

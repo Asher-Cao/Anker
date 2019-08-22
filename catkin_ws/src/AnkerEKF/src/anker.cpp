@@ -33,9 +33,14 @@ void Anker::ankerDataCallback(const anker_ekf_pro::AnkerDataType ankerdata_msg)
   }
   else
   {
-    ankerEkfFusion();
+
     ankerMotionPropagate();
-    publishPath();
+    if(anker_ekf_estimator)
+    {
+      float delta_time_s = cur_data.time_s - last_data.time_s;
+      anker_ekf_estimator->ankerEkfFusion(cur_data,delta_time_s);
+      publishPath();
+    }
   }
 
   last_data = cur_data;
@@ -45,23 +50,17 @@ void Anker::constructAnkerEkfEstimator()
   ekf_state _state;
   _state.w_px = anker_pose.position[0];
   _state.w_py = anker_pose.position[1];
-  _state.b_vx = 0;
-  _state.b_vy = 0;
   _state.yaw = anker_pose.euler_rad[2];
+  _state.b_v = 0;
+  _state.w = 0;
   _state.w_bias = anker_pose.w_bais;
   ekf_motionNoise _motion_noise;
-  _motion_noise.pos_x_noise = 0.01f;
-  _motion_noise.pos_y_noise = 0.01f;
-  _motion_noise.vel_x_noise = 0.01f;
-  _motion_noise.vel_y_noise = 0.01f;
+  _motion_noise.body_vel_noise = 0.02f;
   _motion_noise.gyro_noise = 0.0001f;
   _motion_noise.gyro_bias_noise = 0.00001f;
   ekf_measurementNoise _measurement_noise;
-  _measurement_noise.gyro_bias_noise = _motion_noise.gyro_bias_noise;
-  _measurement_noise.optical_vel_x_noise_q = 0.1f;
-  _measurement_noise.optical_vel_y_noise_q = 0.1f;
-  _measurement_noise.odometry_vel_l_noise_q = 0.01f;
-  _measurement_noise.odometry_vel_r_noise_q = 0.01f;
+  _measurement_noise.odometry_vel_l_noise_q = 0.0001f;
+  _measurement_noise.odometry_vel_r_noise_q = 0.0001f;
   ROS_INFO("Construct ekf begin!");
   anker_ekf_estimator = new AnkerEkfEstimator(_state,_motion_noise,_measurement_noise);
   ROS_INFO("Construct ekf over!");
@@ -93,9 +92,13 @@ bool Anker::ankerInitialization()
 }
 void Anker::ankerMotionPropagate()
 {
+  //Coordinate of robot:
+  // x -- forward
+  // y -- left
+  // z -- up
   float delta_left = cur_data.Odometry_pos[0] - last_data.Odometry_pos[0];
   float delta_right = cur_data.Odometry_pos[1] - last_data.Odometry_pos[1];
-  float delta_yaw = (delta_left - delta_right)/wheel_distance;
+  float delta_yaw = (delta_right - delta_left)/wheel_distance;
   anker_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw);
   // this is for comparision between odometry yaw and imu yaw
   //  float delta_time_s = cur_data.time_s - last_data.time_s;
@@ -106,68 +109,11 @@ void Anker::ankerMotionPropagate()
   float delta_pos = 0.5f*(cur_data.Odometry_pos[0] + cur_data.Odometry_pos[1] - last_data.Odometry_pos[0] - last_data.Odometry_pos[1]);
   anker_pose.position[0] +=  delta_pos*cos(anker_pose.euler_rad[2]);
   anker_pose.position[1] +=  delta_pos*sin(anker_pose.euler_rad[2]);
-  anker_pose.position_opt[0] = anker_pose.position[0] + anker_pose.opt_length*sin(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
-  anker_pose.position_opt[1] = anker_pose.position[1] + anker_pose.opt_length*cos(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
-  ROS_WARN("YAW: %f, GYRO_Z: %f",anker_pose.euler_rad[2],cur_data.Gyro[2]);
+  //anker_pose.position_opt[0] = anker_pose.position[0] + anker_pose.opt_length*sin(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
+  //anker_pose.position_opt[1] = anker_pose.position[1] + anker_pose.opt_length*cos(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
+  //ROS_WARN("YAW: %f, GYRO_Z: %f",anker_pose.euler_rad[2],cur_data.Gyro[2]);
 }
-void Anker::ankerEkfFusion()
-{
 
-
-  float delta_time_s = cur_data.time_s - last_data.time_s;
-  float w_px = anker_ekf_estimator->state.w_px;
-  float w_py = anker_ekf_estimator->state.w_py;
-  float yaw = anker_ekf_estimator->state.yaw;
-  float b_vx = anker_ekf_estimator->state.b_vx;
-  float b_vy = anker_ekf_estimator->state.b_vy;
-  float w_bias = anker_ekf_estimator->state.w_bias;
-  Eigen::Matrix<float,6,1> predict_state;
-  //step1:prediction
-  //predict state
-  predict_state(0,0) = w_px + (cos(yaw)*b_vx - sin(yaw)*b_vy)*delta_time_s;
-  predict_state(1,0) = w_py + (sin(yaw)*b_vx + cos(yaw)*b_vy)*delta_time_s;
-  predict_state(2,0) = yaw  + (cur_data.Gyro[2] - w_bias)*delta_time_s;
-  predict_state(3,0) = b_vx;
-  predict_state(4,0) = b_vy;
-  predict_state(5,0) = w_bias;
-  //predict covariance
-  anker_ekf_estimator->updateJacbianF(delta_time_s);
-  anker_ekf_estimator->updateMatrixG(delta_time_s);
-  Eigen::Matrix<float,6,6>  predict_P = anker_ekf_estimator->predictCovariance();
-
-  //step2: update gain K
-  Eigen::Matrix<float,6,4>  gain_matrix = anker_ekf_estimator->calculateGainMatrix(predict_P);
-
-  //step3: fix state
-  //measurement predicted by predict state.
-  Eigen::Matrix<float,4,1> measurement_shouldbe;
-  measurement_shouldbe(0,0) = b_vx + OpticalDistY*(cur_data.Gyro[2] - w_bias);
-  measurement_shouldbe(1,0) = b_vy + OpticalDistX*(cur_data.Gyro[2] - w_bias);
-  measurement_shouldbe(2,0) = b_vx + (cur_data.Gyro[2] - w_bias)*wheel_distance*0.5f;
-  measurement_shouldbe(3,0) = b_vx - (cur_data.Gyro[2] - w_bias)*wheel_distance*0.5f;
-  //real measurements
-  float v_x = (cur_data.Optical_pos[0] - last_data.Optical_pos[0])/delta_time_s;
-  float v_y = (cur_data.Optical_pos[1] - last_data.Optical_pos[1])/delta_time_s;
-  Eigen::Matrix<float,4,1> measurement_z;
-  measurement_z <<v_x,v_y,cur_data.Odometry_vel[0],cur_data.Odometry_vel[1];
-  Eigen::Matrix<float,6,1> fix_state;
-  //fix
-  Eigen::Matrix<float,4,1> error_state = measurement_z - measurement_shouldbe;
-  fix_state = predict_state + gain_matrix*error_state;
-  anker_ekf_estimator->matrix.P = (Eigen::MatrixXf::Identity(6,6) - gain_matrix*anker_ekf_estimator->matrix.H)*predict_P;
-  anker_ekf_estimator->updateState(fix_state);
-
-  //infos
-  //ROS_ERROR("State Error: OpticalVel(%f,%f) OdometryVel(%f,%f)",error_state(0,0),error_state(1,0),error_state(2,0),error_state(3,0));
-  ROS_WARN("pos(%f,%f,%f), vel(%f,%f), w_bias(%f)",fix_state(0,0),fix_state(1,0),fix_state(2,0),fix_state(3,0),fix_state(4,0),fix_state(5,0));
-//  anker_pose.position[0] = fix_state(0,0);
-//  anker_pose.position[1] = fix_state(1,0);
-//  anker_pose.euler_rad[2] = fix_state(2,0);
-//  anker_pose.euler2matrix();
-//  anker_pose.euler2quaternion();
-
-
-}
 void Anker::ankerMotionPropagateFromOptical()
 {
   //  static float sum_length =0,sum_length_from_imu=0;
@@ -196,11 +142,11 @@ void Anker::ankerMotionPropagateFromOptical()
 void Anker::extractAnkerDatas(const anker_ekf_pro::AnkerDataType ankerdata_msg)
 {
   cur_data.time_s = ankerdata_msg.time_s;
-  cur_data.Acc << ankerdata_msg.ax ,ankerdata_msg.ay ,ankerdata_msg.az ;
-  cur_data.Gyro << ankerdata_msg.gx*deg2rad,ankerdata_msg.gy*deg2rad,-ankerdata_msg.gz*deg2rad;
+  cur_data.Acc << ankerdata_msg.ax,ankerdata_msg.ay,ankerdata_msg.az;
+  cur_data.Gyro << ankerdata_msg.gx*deg2rad,ankerdata_msg.gy*deg2rad,ankerdata_msg.gz*deg2rad;
   cur_data.Odometry_pos << ankerdata_msg.odo_left_pos,ankerdata_msg.odo_right_pos;
   cur_data.Odometry_vel << ankerdata_msg.odo_left_vel,ankerdata_msg.odo_right_vel;
-  cur_data.Optical_pos << -ankerdata_msg.opt_pos_y,ankerdata_msg.opt_pos_x;
+  cur_data.Optical_pos << -ankerdata_msg.opt_pos_y,-ankerdata_msg.opt_pos_x;
   cur_data.Optical_quality = ankerdata_msg.opt_quality;
   cur_data.Wall_distance << ankerdata_msg.wall_distance_left,ankerdata_msg.wall_distance_right;
 }
