@@ -1,2 +1,2 @@
 AnkerDatasPublish:AnkerEKF
--G CodeBlocks - Unix Makefiles -DCMAKE_BUILD_TYPE=Debug -DCATKIN_DEVEL_PREFIX=/home/kdq/Workspace/Anker/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kdq/Workspace/Anker/catkin_ws/install
+-DCATKIN_DEVEL_PREFIX=/home/kdq/Workspace/Anker/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kdq/Workspace/Anker/catkin_ws/install -G Unix Makefiles

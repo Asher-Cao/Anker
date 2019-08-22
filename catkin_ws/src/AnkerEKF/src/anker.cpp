@@ -55,12 +55,12 @@ void Anker::constructAnkerEkfEstimator()
   _state.w = 0;
   _state.w_bias = anker_pose.w_bais;
   ekf_motionNoise _motion_noise;
-  _motion_noise.body_vel_noise = 0.02f;
-  _motion_noise.gyro_noise = 0.0001f;
-  _motion_noise.gyro_bias_noise = 0.00001f;
+  _motion_noise.body_vel_noise = 0.04f;
+  _motion_noise.gyro_noise = 0.01f;
+  _motion_noise.gyro_bias_noise = 0.01f;
   ekf_measurementNoise _measurement_noise;
-  _measurement_noise.odometry_vel_l_noise_q = 0.0001f;
-  _measurement_noise.odometry_vel_r_noise_q = 0.0001f;
+  _measurement_noise.odometry_vel_l_noise_q = 0.001f;
+  _measurement_noise.odometry_vel_r_noise_q = 0.001f;
   ROS_INFO("Construct ekf begin!");
   anker_ekf_estimator = new AnkerEkfEstimator(_state,_motion_noise,_measurement_noise);
   ROS_INFO("Construct ekf over!");
@@ -76,10 +76,10 @@ bool Anker::ankerInitialization()
     count = 0;
     w_sum = 0;
   }
-  if((cur_data.time_s - begin_time) > 5.0f)
+  if((cur_data.time_s - begin_time) > 10.0f)
   {
     anker_pose.w_bais = w_sum/count;
-    ROS_INFO("Average %f wz, Initialize wz_bias : %f rad/s",count,anker_pose.w_bais);
+    ROS_INFO("Average %f wz, Initialize wz_bias : %f deg/s",count,anker_pose.w_bais*rad2deg);
     count = 0;
     w_sum = 0;
     begin_time = 0;
@@ -99,20 +99,32 @@ void Anker::ankerMotionPropagate()
   float delta_left = cur_data.Odometry_pos[0] - last_data.Odometry_pos[0];
   float delta_right = cur_data.Odometry_pos[1] - last_data.Odometry_pos[1];
   float delta_yaw = (delta_right - delta_left)/wheel_distance;
+//  float delta_time_s = cur_data.time_s - last_data.time_s;
+//  float delta_yaw= (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
+
   anker_pose.euler_rad += Eigen::Vector3f(0,0,delta_yaw);
-  // this is for comparision between odometry yaw and imu yaw
-  //  float delta_time_s = cur_data.time_s - last_data.time_s;
-  //  anker_pose.euler_rad[0] += (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
-  //  ROS_INFO("Odometry yaw: %f  IMU yaw: %f ",anker_pose.euler_rad[2]*rad2deg,anker_pose.euler_rad[0]*rad2deg);
   anker_pose.euler2matrix();
   anker_pose.euler2quaternion();
   float delta_pos = 0.5f*(cur_data.Odometry_pos[0] + cur_data.Odometry_pos[1] - last_data.Odometry_pos[0] - last_data.Odometry_pos[1]);
   anker_pose.position[0] +=  delta_pos*cos(anker_pose.euler_rad[2]);
   anker_pose.position[1] +=  delta_pos*sin(anker_pose.euler_rad[2]);
+
+
+  // this is for comparision between odometry yaw and imu yaw
+  //  float delta_time_s = cur_data.time_s - last_data.time_s;
+  //  anker_pose.euler_rad[0] += (cur_data.Gyro[2] - anker_pose.w_bais)*delta_time_s;
+  //  ROS_INFO("Odometry yaw: %f  IMU yaw: %f ",anker_pose.euler_rad[2]*rad2deg,anker_pose.euler_rad[0]*rad2deg);
   //anker_pose.position_opt[0] = anker_pose.position[0] + anker_pose.opt_length*sin(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
   //anker_pose.position_opt[1] = anker_pose.position[1] + anker_pose.opt_length*cos(3.141592f/2.0f - anker_pose.opt_angle - anker_pose.euler_rad[2]);
   //ROS_WARN("YAW: %f, GYRO_Z: %f",anker_pose.euler_rad[2],cur_data.Gyro[2]);
+//  float delta_time_s = cur_data.time_s - last_data.time_s;
+//  float vel = 0.5f*(cur_data.Odometry_vel[0] + cur_data.Odometry_vel[1]);
+//  float delta_pose = vel*delta_time_s;
+//  anker_pose.position_opt[0] += delta_pose*cos(anker_pose.euler_rad[2]);
+//  anker_pose.position_opt[1] += delta_pose*sin(anker_pose.euler_rad[2]);
+
 }
+
 
 void Anker::ankerMotionPropagateFromOptical()
 {
