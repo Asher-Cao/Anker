@@ -21,8 +21,6 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
-ankerdatatype.h
--
 
 /home/kdq/Workspace/Anker/catkin_ws/src/AnkerDatasPublish/src/AnkerDatasPublisher.cpp
 iostream
@@ -35,10 +33,6 @@ anker_data_publish/AnkerDataType.h
 -
 
 /home/kdq/Workspace/Anker/catkin_ws/src/AnkerDatasPublish/src/ankerdatatype.h
-
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerDatasPublish/src/readankerdatafile.cpp
-readankerdatafile.h
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerDatasPublish/src/readankerdatafile.h
 
 /home/kdq/Workspace/Anker/catkin_ws/src/AnkerDatasPublish/src/readankerdatafile.h
 ankerdatatype.h

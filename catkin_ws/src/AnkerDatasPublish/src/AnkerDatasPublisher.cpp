@@ -11,7 +11,8 @@ int main(int argc,char** argv)
   ROS_INFO("AnkerDatasPublish Node Begin!");
   ros::Publisher ankerpublisher = n.advertise<anker_data_publish::AnkerDataType>("/anker_data_topic",10);
 
-  std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/201908212215/";
+  std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/201908231925/";
+ // std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/201908212215/";
   //std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/201908191207/";
   //std::string file_path = "/home/kdq/Workspace/Anker/cvs_datas/ankerdata_30m_trival/";
   std::string imu_file = file_path +  "imu_file.cvs";

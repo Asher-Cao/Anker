@@ -1,6 +1,12 @@
 #ifndef ANKERDATATYPE_H
 #define ANKERDATATYPE_H
 
+#define ACC_Resolution  0.000897825622f //m/s^2
+#define GYRO_Resolution 0.0076294f
+#define OPT_Resolution  8.66306e-05f
+#define TIME_Resolution 0.001f
+#define ODO_Resolution  0.001f
+
 struct AnkerData
 {
     double time;

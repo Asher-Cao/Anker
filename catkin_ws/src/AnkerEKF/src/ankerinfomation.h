@@ -3,7 +3,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#define wheel_distance 0.2063f
+#define wheel_distance 0.209f
 #define ImuDistX  0.1205f;
 #define ImuDistY  0.0103f;
 #define OpticalDistX 0.087f

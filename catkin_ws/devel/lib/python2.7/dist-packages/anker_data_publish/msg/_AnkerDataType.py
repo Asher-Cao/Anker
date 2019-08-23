@@ -7,28 +7,28 @@ import struct
 
 
 class AnkerDataType(genpy.Message):
-  _md5sum = "de6762e996fc903aa001bbb12ea9d4dd"
+  _md5sum = "1a718d0c383faab3290a892f624d74ab"
   _type = "anker_data_publish/AnkerDataType"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """float32 time_s
-float32 gx
-float32 gy
-float32 gz
-float32 ax
-float32 ay
-float32 az
-float32 odo_right_pos
-float32 odo_left_pos
-float32 odo_right_vel
-float32 odo_left_vel
-float32 opt_pos_x
-float32 opt_pos_y
+  _full_text = """float64 time_s
+float64 gx
+float64 gy
+float64 gz
+float64 ax
+float64 ay
+float64 az
+float64 odo_right_pos
+float64 odo_left_pos
+float64 odo_right_vel
+float64 odo_left_vel
+float64 opt_pos_x
+float64 opt_pos_y
 uint16 opt_quality
 uint16 wall_distance_right
 uint16 wall_distance_left
 """
   __slots__ = ['time_s','gx','gy','gz','ax','ay','az','odo_right_pos','odo_left_pos','odo_right_vel','odo_left_vel','opt_pos_x','opt_pos_y','opt_quality','wall_distance_right','wall_distance_left']
-  _slot_types = ['float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','float32','uint16','uint16','uint16']
+  _slot_types = ['float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','float64','uint16','uint16','uint16']
 
   def __init__(self, *args, **kwds):
     """
@@ -110,7 +110,7 @@ uint16 wall_distance_left
     """
     try:
       _x = self
-      buff.write(_get_struct_13f3H().pack(_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left))
+      buff.write(_get_struct_13d3H().pack(_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -123,8 +123,8 @@ uint16 wall_distance_left
       end = 0
       _x = self
       start = end
-      end += 58
-      (_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left,) = _get_struct_13f3H().unpack(str[start:end])
+      end += 110
+      (_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left,) = _get_struct_13d3H().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -138,7 +138,7 @@ uint16 wall_distance_left
     """
     try:
       _x = self
-      buff.write(_get_struct_13f3H().pack(_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left))
+      buff.write(_get_struct_13d3H().pack(_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -152,8 +152,8 @@ uint16 wall_distance_left
       end = 0
       _x = self
       start = end
-      end += 58
-      (_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left,) = _get_struct_13f3H().unpack(str[start:end])
+      end += 110
+      (_x.time_s, _x.gx, _x.gy, _x.gz, _x.ax, _x.ay, _x.az, _x.odo_right_pos, _x.odo_left_pos, _x.odo_right_vel, _x.odo_left_vel, _x.opt_pos_x, _x.opt_pos_y, _x.opt_quality, _x.wall_distance_right, _x.wall_distance_left,) = _get_struct_13d3H().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -162,9 +162,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_13f3H = None
-def _get_struct_13f3H():
-    global _struct_13f3H
-    if _struct_13f3H is None:
-        _struct_13f3H = struct.Struct("<13f3H")
-    return _struct_13f3H
+_struct_13d3H = None
+def _get_struct_13d3H():
+    global _struct_13d3H
+    if _struct_13d3H is None:
+        _struct_13d3H = struct.Struct("<13d3H")
+    return _struct_13d3H
