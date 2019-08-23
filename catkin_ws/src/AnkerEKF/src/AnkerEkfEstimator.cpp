@@ -3,31 +3,31 @@
 AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_noise,ekf_measurementNoise _measure_noise)
   :state(_state),motion_noise(_motion_noise),measue_noise(_measure_noise)
 {
-  matrix.F = Eigen::MatrixXf::Identity(6,6);
+  matrix.F = Eigen::MatrixXd::Identity(6,6);
   matrix.F(4,4) = 0;
   matrix.F(4,5) = -1.0f;
 
-  matrix.Q = Eigen::MatrixXf::Zero(3,3);
+  matrix.Q = Eigen::MatrixXd::Zero(3,3);
   matrix.Q(0,0) = motion_noise.body_vel_noise*motion_noise.body_vel_noise;
   matrix.Q(1,1) = motion_noise.gyro_noise*motion_noise.gyro_noise;
   matrix.Q(2,2) = motion_noise.gyro_bias_noise*motion_noise.gyro_bias_noise;
-  matrix.G = Eigen::MatrixXf::Zero(6,3);
+  matrix.G = Eigen::MatrixXd::Zero(6,3);
   matrix.G(3,0) = 1.0f;
   matrix.G(4,1) = 1.0f;
   matrix.G(5,2) = 1.0f;
 
 
-  matrix.H = Eigen::MatrixXf::Zero(2,6);
+  matrix.H = Eigen::MatrixXd::Zero(2,6);
   matrix.H(0,3) =  1.0f;
   matrix.H(0,4) = -0.5f*wheel_distance;
   matrix.H(1,3) =  1.0f;
   matrix.H(1,4) =  0.5f*wheel_distance;
-  matrix.R = Eigen::MatrixXf::Zero(2,2);
+  matrix.R = Eigen::MatrixXd::Zero(2,2);
   matrix.R(0,0) = measue_noise.odometry_vel_l_noise_q*measue_noise.odometry_vel_l_noise_q;
   matrix.R(1,1) = measue_noise.odometry_vel_r_noise_q*measue_noise.odometry_vel_r_noise_q;
-  matrix.M = Eigen::MatrixXf::Identity(2,2);
+  matrix.M = Eigen::MatrixXd::Identity(2,2);
 
-  matrix.P = 0.01*Eigen::MatrixXf::Identity(6,6);
+  matrix.P = 0.01*Eigen::MatrixXd::Identity(6,6);
 }
 Eigen::Matrix<double,6,1> AnkerEkfEstimator::ankerEkfFusion(AnkerDataType& cur_data,double delta_time_s)
 {
@@ -68,7 +68,7 @@ void AnkerEkfEstimator::updateJacbianF(double delta_time_s)
 }
 void AnkerEkfEstimator::updateCovariance(Eigen::Matrix<double,6,2>& gain_matrix,Eigen::Matrix<double,6,6>& predict_P)
 {
-  matrix.P = (Eigen::MatrixXf::Identity(6,6) - gain_matrix*matrix.H)*predict_P;
+  matrix.P = (Eigen::MatrixXd::Identity(6,6) - gain_matrix*matrix.H)*predict_P;
 }
 Eigen::Matrix<double,6,6> AnkerEkfEstimator::predictCovariance()
 {

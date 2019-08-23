@@ -223,7 +223,7 @@ void Anker::publishPath()
   pose_stamped_tmp.pose.position.y = anker_ekf_estimator->state.w_py;
   pose_stamped_tmp.pose.position.z = 0;
   Eigen::AngleAxisd tmp_yaw( Eigen::AngleAxisd(anker_ekf_estimator->state.yaw,Eigen::Vector3d::UnitZ()));
-  Eigen::Quaternionf tmp_q;
+  Eigen::Quaterniond tmp_q;
   tmp_q = tmp_yaw;
   pose_stamped_tmp.pose.orientation.x = tmp_q.x();
   pose_stamped_tmp.pose.orientation.y = tmp_q.y();

@@ -22,10 +22,6 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/AnkerEkfEstimator.cpp
-AnkerEkfEstimator.h
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/AnkerEkfEstimator.h
-
 /home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/AnkerEkfEstimator.h
 ankerekfdefine.h
 /home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/ankerekfdefine.h
@@ -69,12 +65,6 @@ Eigen/Core
 -
 Eigen/Geometry
 -
-
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/main.cpp
-iostream
--
-anker.h
-/home/kdq/Workspace/Anker/catkin_ws/src/AnkerEKF/src/anker.h
 
 /opt/ros/kinetic/include/geometry_msgs/Point.h
 string

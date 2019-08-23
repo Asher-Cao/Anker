@@ -28,7 +28,7 @@ struct AnkerDataType
 
 struct AnkerPose
 {
-  Eigen::Quaternionf q;
+  Eigen::Quaterniond q;
   Eigen::Vector3d position;
   Eigen::Vector3d position_opt;
   Eigen::Vector3d euler_rad;
