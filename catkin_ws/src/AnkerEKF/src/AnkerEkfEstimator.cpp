@@ -29,10 +29,10 @@ AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_no
 
   matrix.P = 0.01*Eigen::MatrixXf::Identity(6,6);
 }
-Eigen::Matrix<float,6,1> AnkerEkfEstimator::ankerEkfFusion(AnkerDataType& cur_data,float delta_time_s)
+Eigen::Matrix<double,6,1> AnkerEkfEstimator::ankerEkfFusion(AnkerDataType& cur_data,double delta_time_s)
 {
   //Step1: predict state
-  Eigen::Matrix<float,6,1> predict_state;
+  Eigen::Matrix<double,6,1> predict_state;
   predict_state(0,0) = state.w_px + state.b_v*cos(state.yaw)*delta_time_s;
   predict_state(1,0) = state.w_py + state.b_v*sin(state.yaw)*delta_time_s;
   predict_state(2,0) = state.yaw  + state.w*delta_time_s;
@@ -41,24 +41,24 @@ Eigen::Matrix<float,6,1> AnkerEkfEstimator::ankerEkfFusion(AnkerDataType& cur_da
   predict_state(5,0) = state.w_bias;
   //predict covariance
   updateJacbianF(delta_time_s);
-  Eigen::Matrix<float,6,6>  predict_P = predictCovariance();
+  Eigen::Matrix<double,6,6>  predict_P = predictCovariance();
   //Step2: Calculate gain matrix
-  Eigen::Matrix<float,6,2>  gain_matrix = calculateGainMatrix(predict_P);
+  Eigen::Matrix<double,6,2>  gain_matrix = calculateGainMatrix(predict_P);
 
   //step3: fix state
-  Eigen::Matrix<float,2,1> predict_measure,measurement;
+  Eigen::Matrix<double,2,1> predict_measure,measurement;
   predict_measure(0,0) = predict_state(3,0) - 0.5f*wheel_distance*predict_state(4,0);
   predict_measure(1,0) = predict_state(3,0) + 0.5f*wheel_distance*predict_state(4,0);
   measurement(0,0) = cur_data.Odometry_vel[0];
   measurement(1,0) = cur_data.Odometry_vel[1];
-  Eigen::Matrix<float,6,1> fix_state;
+  Eigen::Matrix<double,6,1> fix_state;
   fix_state = predict_state + gain_matrix*(measurement - predict_measure);
   updateCovariance(gain_matrix,predict_P);
   updateState(fix_state);
   return fix_state;
 }
 
-void AnkerEkfEstimator::updateJacbianF(float delta_time_s)
+void AnkerEkfEstimator::updateJacbianF(double delta_time_s)
 {
   matrix.F(0,2) = -sin(state.yaw)*state.b_v*delta_time_s;
   matrix.F(0,3) =  cos(state.yaw)*delta_time_s;
@@ -66,24 +66,24 @@ void AnkerEkfEstimator::updateJacbianF(float delta_time_s)
   matrix.F(1,3) =  sin(state.yaw)*delta_time_s;
   matrix.F(2,4) =  delta_time_s;
 }
-void AnkerEkfEstimator::updateCovariance(Eigen::Matrix<float,6,2>& gain_matrix,Eigen::Matrix<float,6,6>& predict_P)
+void AnkerEkfEstimator::updateCovariance(Eigen::Matrix<double,6,2>& gain_matrix,Eigen::Matrix<double,6,6>& predict_P)
 {
   matrix.P = (Eigen::MatrixXf::Identity(6,6) - gain_matrix*matrix.H)*predict_P;
 }
-Eigen::Matrix<float,6,6> AnkerEkfEstimator::predictCovariance()
+Eigen::Matrix<double,6,6> AnkerEkfEstimator::predictCovariance()
 {
-  Eigen::Matrix<float,6,6> predict_P = matrix.F*matrix.P*matrix.F.transpose() + matrix.G*matrix.Q*matrix.G.transpose();
+  Eigen::Matrix<double,6,6> predict_P = matrix.F*matrix.P*matrix.F.transpose() + matrix.G*matrix.Q*matrix.G.transpose();
   return predict_P;
 
 }
-Eigen::Matrix<float,6,2> AnkerEkfEstimator::calculateGainMatrix(Eigen::Matrix<float,6,6>& predict_P)
+Eigen::Matrix<double,6,2> AnkerEkfEstimator::calculateGainMatrix(Eigen::Matrix<double,6,6>& predict_P)
 {
-  Eigen::Matrix<float,2,2>  tmp_matrix = matrix.H*predict_P*matrix.H.transpose() + matrix.M*matrix.R*matrix.M.transpose();
-  Eigen::Matrix<float,6,2>  gain_matrix = predict_P*matrix.H.transpose()*tmp_matrix.inverse();
+  Eigen::Matrix<double,2,2>  tmp_matrix = matrix.H*predict_P*matrix.H.transpose() + matrix.M*matrix.R*matrix.M.transpose();
+  Eigen::Matrix<double,6,2>  gain_matrix = predict_P*matrix.H.transpose()*tmp_matrix.inverse();
   return gain_matrix;
 }
 
-void AnkerEkfEstimator::updateState(Eigen::Matrix<float,6,1>& new_state)
+void AnkerEkfEstimator::updateState(Eigen::Matrix<double,6,1>& new_state)
 {
 
   state.w_px = new_state(0,0);

@@ -16,12 +16,12 @@
 
 struct AnkerDataType
 {
-  float time_s;
-  Eigen::Vector3f Gyro;
-  Eigen::Vector3f Acc;
-  Eigen::Vector2f Odometry_pos;
-  Eigen::Vector2f Odometry_vel;
-  Eigen::Vector2f Optical_pos;
+  double time_s;
+  Eigen::Vector3d Gyro;
+  Eigen::Vector3d Acc;
+  Eigen::Vector2d Odometry_pos;
+  Eigen::Vector2d Odometry_vel;
+  Eigen::Vector2d Optical_pos;
   Eigen::Vector2i Wall_distance;
   unsigned short int Optical_quality;
 };
@@ -29,25 +29,25 @@ struct AnkerDataType
 struct AnkerPose
 {
   Eigen::Quaternionf q;
-  Eigen::Vector3f position;
-  Eigen::Vector3f position_opt;
-  Eigen::Vector3f euler_rad;
-  Eigen::Matrix3f rotation_matrix;
-  float w_bais;
-  float opt_angle;
-  float opt_length;
+  Eigen::Vector3d position;
+  Eigen::Vector3d position_opt;
+  Eigen::Vector3d euler_rad;
+  Eigen::Matrix3d rotation_matrix;
+  double w_bais;
+  double opt_angle;
+  double opt_length;
   void euler2matrix()
   {
-    Eigen::AngleAxisf aa_roll( Eigen::AngleAxisf(euler_rad[0],Eigen::Vector3f::UnitX()));
-    Eigen::AngleAxisf aa_pitch( Eigen::AngleAxisf(euler_rad[1],Eigen::Vector3f::UnitY()));
-    Eigen::AngleAxisf aa_yaw( Eigen::AngleAxisf(euler_rad[2],Eigen::Vector3f::UnitZ()));
+    Eigen::AngleAxisd aa_roll( Eigen::AngleAxisd(euler_rad[0],Eigen::Vector3d::UnitX()));
+    Eigen::AngleAxisd aa_pitch( Eigen::AngleAxisd(euler_rad[1],Eigen::Vector3d::UnitY()));
+    Eigen::AngleAxisd aa_yaw( Eigen::AngleAxisd(euler_rad[2],Eigen::Vector3d::UnitZ()));
     rotation_matrix = aa_roll*aa_pitch*aa_yaw;
   }
   void euler2quaternion()
   {
-    Eigen::AngleAxisf aa_roll( Eigen::AngleAxisf(euler_rad[0],Eigen::Vector3f::UnitX()));
-    Eigen::AngleAxisf aa_pitch( Eigen::AngleAxisf(euler_rad[1],Eigen::Vector3f::UnitY()));
-    Eigen::AngleAxisf aa_yaw( Eigen::AngleAxisf(euler_rad[2],Eigen::Vector3f::UnitZ()));
+    Eigen::AngleAxisd aa_roll( Eigen::AngleAxisd(euler_rad[0],Eigen::Vector3d::UnitX()));
+    Eigen::AngleAxisd aa_pitch( Eigen::AngleAxisd(euler_rad[1],Eigen::Vector3d::UnitY()));
+    Eigen::AngleAxisd aa_yaw( Eigen::AngleAxisd(euler_rad[2],Eigen::Vector3d::UnitZ()));
     q = aa_roll*aa_pitch*aa_yaw;
   }
 };

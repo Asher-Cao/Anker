@@ -20,7 +20,7 @@ ReadAnkerDataFile::ReadAnkerDataFile(const string& imu_file,const string& odomet
     std::cout << "Optical First Line : " << str_skip << std::endl;
     while(!imu_fin.eof())
     {
-        float t_imu,t_odo,t_opt;
+        double t_imu,t_odo,t_opt;
         imu_fin >> t_imu;
         odo_fin >> t_odo;
         opt_fin >> t_opt;
