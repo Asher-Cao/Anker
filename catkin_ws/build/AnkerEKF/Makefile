@@ -491,6 +491,33 @@ src/anker.cpp.s:
 	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/anker.cpp.s
 .PHONY : src/anker.cpp.s
 
+src/imu.o: src/imu.cpp.o
+
+.PHONY : src/imu.o
+
+# target to build an object file
+src/imu.cpp.o:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/imu.cpp.o
+.PHONY : src/imu.cpp.o
+
+src/imu.i: src/imu.cpp.i
+
+.PHONY : src/imu.i
+
+# target to preprocess a source file
+src/imu.cpp.i:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/imu.cpp.i
+.PHONY : src/imu.cpp.i
+
+src/imu.s: src/imu.cpp.s
+
+.PHONY : src/imu.s
+
+# target to generate assembly for a file
+src/imu.cpp.s:
+	cd /home/kdq/Workspace/Anker/catkin_ws/build && $(MAKE) -f AnkerEKF/CMakeFiles/anker_ekf.dir/build.make AnkerEKF/CMakeFiles/anker_ekf.dir/src/imu.cpp.s
+.PHONY : src/imu.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -555,6 +582,9 @@ help:
 	@echo "... src/anker.o"
 	@echo "... src/anker.i"
 	@echo "... src/anker.s"
+	@echo "... src/imu.o"
+	@echo "... src/imu.i"
+	@echo "... src/imu.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

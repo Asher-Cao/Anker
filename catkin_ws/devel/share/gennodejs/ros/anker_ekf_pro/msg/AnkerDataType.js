@@ -138,31 +138,31 @@ class AnkerDataType {
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type AnkerDataType
     // Serialize message field [time_s]
-    bufferOffset = _serializer.float32(obj.time_s, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.time_s, buffer, bufferOffset);
     // Serialize message field [gx]
-    bufferOffset = _serializer.float32(obj.gx, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.gx, buffer, bufferOffset);
     // Serialize message field [gy]
-    bufferOffset = _serializer.float32(obj.gy, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.gy, buffer, bufferOffset);
     // Serialize message field [gz]
-    bufferOffset = _serializer.float32(obj.gz, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.gz, buffer, bufferOffset);
     // Serialize message field [ax]
-    bufferOffset = _serializer.float32(obj.ax, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.ax, buffer, bufferOffset);
     // Serialize message field [ay]
-    bufferOffset = _serializer.float32(obj.ay, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.ay, buffer, bufferOffset);
     // Serialize message field [az]
-    bufferOffset = _serializer.float32(obj.az, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.az, buffer, bufferOffset);
     // Serialize message field [odo_right_pos]
-    bufferOffset = _serializer.float32(obj.odo_right_pos, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.odo_right_pos, buffer, bufferOffset);
     // Serialize message field [odo_left_pos]
-    bufferOffset = _serializer.float32(obj.odo_left_pos, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.odo_left_pos, buffer, bufferOffset);
     // Serialize message field [odo_right_vel]
-    bufferOffset = _serializer.float32(obj.odo_right_vel, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.odo_right_vel, buffer, bufferOffset);
     // Serialize message field [odo_left_vel]
-    bufferOffset = _serializer.float32(obj.odo_left_vel, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.odo_left_vel, buffer, bufferOffset);
     // Serialize message field [opt_pos_x]
-    bufferOffset = _serializer.float32(obj.opt_pos_x, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.opt_pos_x, buffer, bufferOffset);
     // Serialize message field [opt_pos_y]
-    bufferOffset = _serializer.float32(obj.opt_pos_y, buffer, bufferOffset);
+    bufferOffset = _serializer.float64(obj.opt_pos_y, buffer, bufferOffset);
     // Serialize message field [opt_quality]
     bufferOffset = _serializer.uint16(obj.opt_quality, buffer, bufferOffset);
     // Serialize message field [wall_distance_right]
@@ -177,31 +177,31 @@ class AnkerDataType {
     let len;
     let data = new AnkerDataType(null);
     // Deserialize message field [time_s]
-    data.time_s = _deserializer.float32(buffer, bufferOffset);
+    data.time_s = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [gx]
-    data.gx = _deserializer.float32(buffer, bufferOffset);
+    data.gx = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [gy]
-    data.gy = _deserializer.float32(buffer, bufferOffset);
+    data.gy = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [gz]
-    data.gz = _deserializer.float32(buffer, bufferOffset);
+    data.gz = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [ax]
-    data.ax = _deserializer.float32(buffer, bufferOffset);
+    data.ax = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [ay]
-    data.ay = _deserializer.float32(buffer, bufferOffset);
+    data.ay = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [az]
-    data.az = _deserializer.float32(buffer, bufferOffset);
+    data.az = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [odo_right_pos]
-    data.odo_right_pos = _deserializer.float32(buffer, bufferOffset);
+    data.odo_right_pos = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [odo_left_pos]
-    data.odo_left_pos = _deserializer.float32(buffer, bufferOffset);
+    data.odo_left_pos = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [odo_right_vel]
-    data.odo_right_vel = _deserializer.float32(buffer, bufferOffset);
+    data.odo_right_vel = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [odo_left_vel]
-    data.odo_left_vel = _deserializer.float32(buffer, bufferOffset);
+    data.odo_left_vel = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [opt_pos_x]
-    data.opt_pos_x = _deserializer.float32(buffer, bufferOffset);
+    data.opt_pos_x = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [opt_pos_y]
-    data.opt_pos_y = _deserializer.float32(buffer, bufferOffset);
+    data.opt_pos_y = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [opt_quality]
     data.opt_quality = _deserializer.uint16(buffer, bufferOffset);
     // Deserialize message field [wall_distance_right]
@@ -212,7 +212,7 @@ class AnkerDataType {
   }
 
   static getMessageSize(object) {
-    return 58;
+    return 110;
   }
 
   static datatype() {
@@ -222,25 +222,25 @@ class AnkerDataType {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'de6762e996fc903aa001bbb12ea9d4dd';
+    return '1a718d0c383faab3290a892f624d74ab';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    float32 time_s
-    float32 gx
-    float32 gy
-    float32 gz
-    float32 ax
-    float32 ay
-    float32 az
-    float32 odo_right_pos
-    float32 odo_left_pos
-    float32 odo_right_vel
-    float32 odo_left_vel
-    float32 opt_pos_x
-    float32 opt_pos_y
+    float64 time_s
+    float64 gx
+    float64 gy
+    float64 gz
+    float64 ax
+    float64 ay
+    float64 az
+    float64 odo_right_pos
+    float64 odo_left_pos
+    float64 odo_right_vel
+    float64 odo_left_vel
+    float64 opt_pos_x
+    float64 opt_pos_y
     uint16 opt_quality
     uint16 wall_distance_right
     uint16 wall_distance_left

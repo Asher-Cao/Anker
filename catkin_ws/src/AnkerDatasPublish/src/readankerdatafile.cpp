@@ -35,20 +35,24 @@ ReadAnkerDataFile::ReadAnkerDataFile(const string& imu_file,const string& odomet
   if(fabs(test_data_type - (double)test_data_type_int) > 0.00001f)
   {
     type_is_int = false;
-    ROS_ERROR("Data type is float!!!");
+    ROS_INFO("Data type is float!!!");
   }
   else
   {
     type_is_int = true;
-     ROS_ERROR("Data type is Int!!!");
+     ROS_INFO("Data type is Int!!!");
   }
   bool lck = true;
   while(!imu_fin.eof())
   {
     double t_imu,t_odo,t_opt;
-    if(lck == false)
+    if(lck == true)
+    {
+      lck = false;
+      t_imu = test_data_type;
+    }else{
       imu_fin >> t_imu;
-    lck = false;
+    }
     odo_fin >> t_odo;
     opt_fin >> t_opt;
     if(type_is_int)
@@ -82,7 +86,6 @@ ReadAnkerDataFile::ReadAnkerDataFile(const string& imu_file,const string& odomet
     opt_fin >> raw_data.wall_distance_right;
     if(type_is_int)
     {
-      raw_data.time = raw_data.time*TIME_Resolution;
       raw_data.ax = raw_data.ax*ACC_Resolution;
       raw_data.ay = raw_data.ay*ACC_Resolution;
       raw_data.az = raw_data.az*ACC_Resolution;

@@ -38,7 +38,7 @@ add_executable(anker_data_publisher
  
     )
 
-
+add_dependencies(anker_data_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS})
 target_link_libraries(anker_data_publisher ${catkin_LIBRARIES})
 
 

@@ -63,43 +63,43 @@ struct AnkerDataType_
 
 
 
-   typedef float _time_s_type;
+   typedef double _time_s_type;
   _time_s_type time_s;
 
-   typedef float _gx_type;
+   typedef double _gx_type;
   _gx_type gx;
 
-   typedef float _gy_type;
+   typedef double _gy_type;
   _gy_type gy;
 
-   typedef float _gz_type;
+   typedef double _gz_type;
   _gz_type gz;
 
-   typedef float _ax_type;
+   typedef double _ax_type;
   _ax_type ax;
 
-   typedef float _ay_type;
+   typedef double _ay_type;
   _ay_type ay;
 
-   typedef float _az_type;
+   typedef double _az_type;
   _az_type az;
 
-   typedef float _odo_right_pos_type;
+   typedef double _odo_right_pos_type;
   _odo_right_pos_type odo_right_pos;
 
-   typedef float _odo_left_pos_type;
+   typedef double _odo_left_pos_type;
   _odo_left_pos_type odo_left_pos;
 
-   typedef float _odo_right_vel_type;
+   typedef double _odo_right_vel_type;
   _odo_right_vel_type odo_right_vel;
 
-   typedef float _odo_left_vel_type;
+   typedef double _odo_left_vel_type;
   _odo_left_vel_type odo_left_vel;
 
-   typedef float _opt_pos_x_type;
+   typedef double _opt_pos_x_type;
   _opt_pos_x_type opt_pos_x;
 
-   typedef float _opt_pos_y_type;
+   typedef double _opt_pos_y_type;
   _opt_pos_y_type opt_pos_y;
 
    typedef uint16_t _opt_quality_type;
@@ -189,12 +189,12 @@ struct MD5Sum< ::anker_ekf_pro::AnkerDataType_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "de6762e996fc903aa001bbb12ea9d4dd";
+    return "1a718d0c383faab3290a892f624d74ab";
   }
 
   static const char* value(const ::anker_ekf_pro::AnkerDataType_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xde6762e996fc903aULL;
-  static const uint64_t static_value2 = 0xa001bbb12ea9d4ddULL;
+  static const uint64_t static_value1 = 0x1a718d0c383faab3ULL;
+  static const uint64_t static_value2 = 0x290a892f624d74abULL;
 };
 
 template<class ContainerAllocator>
@@ -213,19 +213,19 @@ struct Definition< ::anker_ekf_pro::AnkerDataType_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "float32 time_s\n\
-float32 gx\n\
-float32 gy\n\
-float32 gz\n\
-float32 ax\n\
-float32 ay\n\
-float32 az\n\
-float32 odo_right_pos\n\
-float32 odo_left_pos\n\
-float32 odo_right_vel\n\
-float32 odo_left_vel\n\
-float32 opt_pos_x\n\
-float32 opt_pos_y\n\
+    return "float64 time_s\n\
+float64 gx\n\
+float64 gy\n\
+float64 gz\n\
+float64 ax\n\
+float64 ay\n\
+float64 az\n\
+float64 odo_right_pos\n\
+float64 odo_left_pos\n\
+float64 odo_right_vel\n\
+float64 odo_left_vel\n\
+float64 opt_pos_x\n\
+float64 opt_pos_y\n\
 uint16 opt_quality\n\
 uint16 wall_distance_right\n\
 uint16 wall_distance_left\n\
@@ -282,31 +282,31 @@ struct Printer< ::anker_ekf_pro::AnkerDataType_<ContainerAllocator> >
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::anker_ekf_pro::AnkerDataType_<ContainerAllocator>& v)
   {
     s << indent << "time_s: ";
-    Printer<float>::stream(s, indent + "  ", v.time_s);
+    Printer<double>::stream(s, indent + "  ", v.time_s);
     s << indent << "gx: ";
-    Printer<float>::stream(s, indent + "  ", v.gx);
+    Printer<double>::stream(s, indent + "  ", v.gx);
     s << indent << "gy: ";
-    Printer<float>::stream(s, indent + "  ", v.gy);
+    Printer<double>::stream(s, indent + "  ", v.gy);
     s << indent << "gz: ";
-    Printer<float>::stream(s, indent + "  ", v.gz);
+    Printer<double>::stream(s, indent + "  ", v.gz);
     s << indent << "ax: ";
-    Printer<float>::stream(s, indent + "  ", v.ax);
+    Printer<double>::stream(s, indent + "  ", v.ax);
     s << indent << "ay: ";
-    Printer<float>::stream(s, indent + "  ", v.ay);
+    Printer<double>::stream(s, indent + "  ", v.ay);
     s << indent << "az: ";
-    Printer<float>::stream(s, indent + "  ", v.az);
+    Printer<double>::stream(s, indent + "  ", v.az);
     s << indent << "odo_right_pos: ";
-    Printer<float>::stream(s, indent + "  ", v.odo_right_pos);
+    Printer<double>::stream(s, indent + "  ", v.odo_right_pos);
     s << indent << "odo_left_pos: ";
-    Printer<float>::stream(s, indent + "  ", v.odo_left_pos);
+    Printer<double>::stream(s, indent + "  ", v.odo_left_pos);
     s << indent << "odo_right_vel: ";
-    Printer<float>::stream(s, indent + "  ", v.odo_right_vel);
+    Printer<double>::stream(s, indent + "  ", v.odo_right_vel);
     s << indent << "odo_left_vel: ";
-    Printer<float>::stream(s, indent + "  ", v.odo_left_vel);
+    Printer<double>::stream(s, indent + "  ", v.odo_left_vel);
     s << indent << "opt_pos_x: ";
-    Printer<float>::stream(s, indent + "  ", v.opt_pos_x);
+    Printer<double>::stream(s, indent + "  ", v.opt_pos_x);
     s << indent << "opt_pos_y: ";
-    Printer<float>::stream(s, indent + "  ", v.opt_pos_y);
+    Printer<double>::stream(s, indent + "  ", v.opt_pos_y);
     s << indent << "opt_quality: ";
     Printer<uint16_t>::stream(s, indent + "  ", v.opt_quality);
     s << indent << "wall_distance_right: ";

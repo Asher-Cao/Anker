@@ -105,32 +105,32 @@
   (:serialization-length
    ()
    (+
-    ;; float32 _time_s
-    4
-    ;; float32 _gx
-    4
-    ;; float32 _gy
-    4
-    ;; float32 _gz
-    4
-    ;; float32 _ax
-    4
-    ;; float32 _ay
-    4
-    ;; float32 _az
-    4
-    ;; float32 _odo_right_pos
-    4
-    ;; float32 _odo_left_pos
-    4
-    ;; float32 _odo_right_vel
-    4
-    ;; float32 _odo_left_vel
-    4
-    ;; float32 _opt_pos_x
-    4
-    ;; float32 _opt_pos_y
-    4
+    ;; float64 _time_s
+    8
+    ;; float64 _gx
+    8
+    ;; float64 _gy
+    8
+    ;; float64 _gz
+    8
+    ;; float64 _ax
+    8
+    ;; float64 _ay
+    8
+    ;; float64 _az
+    8
+    ;; float64 _odo_right_pos
+    8
+    ;; float64 _odo_left_pos
+    8
+    ;; float64 _odo_right_vel
+    8
+    ;; float64 _odo_left_vel
+    8
+    ;; float64 _opt_pos_x
+    8
+    ;; float64 _opt_pos_y
+    8
     ;; uint16 _opt_quality
     2
     ;; uint16 _wall_distance_right
@@ -142,32 +142,32 @@
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; float32 _time_s
-       (sys::poke _time_s (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _gx
-       (sys::poke _gx (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _gy
-       (sys::poke _gy (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _gz
-       (sys::poke _gz (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _ax
-       (sys::poke _ax (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _ay
-       (sys::poke _ay (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _az
-       (sys::poke _az (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _odo_right_pos
-       (sys::poke _odo_right_pos (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _odo_left_pos
-       (sys::poke _odo_left_pos (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _odo_right_vel
-       (sys::poke _odo_right_vel (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _odo_left_vel
-       (sys::poke _odo_left_vel (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _opt_pos_x
-       (sys::poke _opt_pos_x (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
-     ;; float32 _opt_pos_y
-       (sys::poke _opt_pos_y (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float64 _time_s
+       (sys::poke _time_s (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _gx
+       (sys::poke _gx (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _gy
+       (sys::poke _gy (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _gz
+       (sys::poke _gz (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _ax
+       (sys::poke _ax (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _ay
+       (sys::poke _ay (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _az
+       (sys::poke _az (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _odo_right_pos
+       (sys::poke _odo_right_pos (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _odo_left_pos
+       (sys::poke _odo_left_pos (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _odo_right_vel
+       (sys::poke _odo_right_vel (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _odo_left_vel
+       (sys::poke _odo_left_vel (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _opt_pos_x
+       (sys::poke _opt_pos_x (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _opt_pos_y
+       (sys::poke _opt_pos_y (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; uint16 _opt_quality
        (write-word _opt_quality s)
      ;; uint16 _wall_distance_right
@@ -178,32 +178,32 @@
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; float32 _time_s
-     (setq _time_s (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _gx
-     (setq _gx (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _gy
-     (setq _gy (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _gz
-     (setq _gz (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _ax
-     (setq _ax (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _ay
-     (setq _ay (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _az
-     (setq _az (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _odo_right_pos
-     (setq _odo_right_pos (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _odo_left_pos
-     (setq _odo_left_pos (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _odo_right_vel
-     (setq _odo_right_vel (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _odo_left_vel
-     (setq _odo_left_vel (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _opt_pos_x
-     (setq _opt_pos_x (sys::peek buf ptr- :float)) (incf ptr- 4)
-   ;; float32 _opt_pos_y
-     (setq _opt_pos_y (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float64 _time_s
+     (setq _time_s (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _gx
+     (setq _gx (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _gy
+     (setq _gy (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _gz
+     (setq _gz (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _ax
+     (setq _ax (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _ay
+     (setq _ay (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _az
+     (setq _az (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _odo_right_pos
+     (setq _odo_right_pos (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _odo_left_pos
+     (setq _odo_left_pos (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _odo_right_vel
+     (setq _odo_right_vel (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _odo_left_vel
+     (setq _odo_left_vel (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _opt_pos_x
+     (setq _opt_pos_x (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _opt_pos_y
+     (setq _opt_pos_y (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; uint16 _opt_quality
      (setq _opt_quality (sys::peek buf ptr- :short)) (incf ptr- 2)
    ;; uint16 _wall_distance_right
@@ -214,22 +214,22 @@
    self)
   )
 
-(setf (get anker_ekf_pro::AnkerDataType :md5sum-) "de6762e996fc903aa001bbb12ea9d4dd")
+(setf (get anker_ekf_pro::AnkerDataType :md5sum-) "1a718d0c383faab3290a892f624d74ab")
 (setf (get anker_ekf_pro::AnkerDataType :datatype-) "anker_ekf_pro/AnkerDataType")
 (setf (get anker_ekf_pro::AnkerDataType :definition-)
-      "float32 time_s
-float32 gx
-float32 gy
-float32 gz
-float32 ax
-float32 ay
-float32 az
-float32 odo_right_pos
-float32 odo_left_pos
-float32 odo_right_vel
-float32 odo_left_vel
-float32 opt_pos_x
-float32 opt_pos_y
+      "float64 time_s
+float64 gx
+float64 gy
+float64 gz
+float64 ax
+float64 ay
+float64 az
+float64 odo_right_pos
+float64 odo_left_pos
+float64 odo_right_vel
+float64 odo_left_vel
+float64 opt_pos_x
+float64 opt_pos_y
 uint16 opt_quality
 uint16 wall_distance_right
 uint16 wall_distance_left
@@ -238,6 +238,6 @@ uint16 wall_distance_left
 
 
 
-(provide :anker_ekf_pro/AnkerDataType "de6762e996fc903aa001bbb12ea9d4dd")
+(provide :anker_ekf_pro/AnkerDataType "1a718d0c383faab3290a892f624d74ab")
 
 

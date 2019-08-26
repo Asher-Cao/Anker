@@ -27,7 +27,14 @@ AnkerEkfEstimator::AnkerEkfEstimator(ekf_state _state,ekf_motionNoise _motion_no
   matrix.R(1,1) = measue_noise.odometry_vel_r_noise_q*measue_noise.odometry_vel_r_noise_q;
   matrix.M = Eigen::MatrixXd::Identity(2,2);
 
-  matrix.P = 0.01*Eigen::MatrixXd::Identity(6,6);
+  matrix.P = 0.01f*Eigen::MatrixXd::Identity(6,6);
+//  std::cout << "P: \n" << matrix.P << std::endl;
+//  std::cout << "F: \n" << matrix.F << std::endl;
+//  std::cout << "Q: \n" << matrix.Q << std::endl;
+//  std::cout << "R: \n" << matrix.R << std::endl;
+//  std::cout << "G: \n" << matrix.G << std::endl;
+//  std::cout << "M: \n" << matrix.M << std::endl;
+//  std::cout << "H: \n" << matrix.H << std::endl;
 }
 Eigen::Matrix<double,6,1> AnkerEkfEstimator::ankerEkfFusion(AnkerDataType& cur_data,double delta_time_s)
 {

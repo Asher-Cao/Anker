@@ -3,7 +3,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-#define wheel_distance 0.209f
+#define wheel_distance 0.2063f
 #define ImuDistX  0.1205f;
 #define ImuDistY  0.0103f;
 #define OpticalDistX 0.087f
@@ -13,6 +13,15 @@
 #define deg2rad  0.017453292f
 #define gyro_z_noise_density  0.00014467f
 #define gyro_z_noise_random_walk    0.00000413f
+
+#define gyro_calibration_time 20.0f
+#define gravity_g  	9.7936f
+#define acc_scalar_x 1.023688f
+#define acc_scalar_y 1.048019f
+#define acc_scalar_z 1.042426f
+#define acc_bias_x   0.004377f
+#define acc_bias_y  -0.166390f
+#define acc_bias_z   0.658308f
 
 struct AnkerDataType
 {
@@ -33,7 +42,7 @@ struct AnkerPose
   Eigen::Vector3d position_opt;
   Eigen::Vector3d euler_rad;
   Eigen::Matrix3d rotation_matrix;
-  double w_bais;
+  double tilt_angle;
   double opt_angle;
   double opt_length;
   void euler2matrix()

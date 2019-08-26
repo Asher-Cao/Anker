@@ -10,6 +10,7 @@
 #include <math.h>
 #include "ankerinfomation.h"
 #include "AnkerEkfEstimator.h"
+#include "imu.h"
 using namespace std;
 class Anker
 {
@@ -21,7 +22,6 @@ public:
   void constructAnkerEkfEstimator();
   bool ankerInitialization();
   void ankerMotionPropagate();
-  void ankerMotionPropagateFromOptical();
   void publishPath();
 
 
@@ -38,6 +38,7 @@ protected:
   nav_msgs::Path path_tmp;
   bool initial_flg;
   AnkerEkfEstimator *anker_ekf_estimator;
+  IMU imu;
 private:
   AnkerDataType cur_data;
   AnkerDataType last_data;

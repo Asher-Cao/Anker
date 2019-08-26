@@ -49,9 +49,10 @@ add_executable(anker_ekf
     src/main.cpp
     src/anker.cpp
     src/AnkerEkfEstimator.cpp
+    src/imu.cpp
     )
 
-
+add_dependencies(anker_ekf ${${PROJECT_NAME}_EXPORTED_TARGETS})
 target_link_libraries(anker_ekf ${catkin_LIBRARIES} ${OpenCV_LIBS} ${CERES_LIBRARIES})
 
 
