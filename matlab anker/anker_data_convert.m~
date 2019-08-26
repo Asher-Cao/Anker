@@ -1,0 +1,11 @@
+function [outputArg1,outputArg2] = anker_data_convert(str,inputArg2)
+%ANKER_DATA_CONVERT 此处显示有关此函数的摘要
+%   此处显示详细说明
+ACC_Resolution = 0.000897825622;
+GYRO_Resolution = 0.0076294;
+OPT_Resolution = 8.66306e-05;
+TIME_Resolution = 0.001;
+ODO_Resolution = 0.001;
+
+end
+
