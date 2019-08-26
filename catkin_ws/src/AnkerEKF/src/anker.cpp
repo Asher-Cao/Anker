@@ -102,8 +102,8 @@ void Anker::ankerMotionPropagate()
 
   double delta_time_s = cur_data.time_s - last_data.time_s;
   Eigen::Vector3d delta_yaw_2 = (cur_data.Gyro - imu.getGyroBias())*delta_time_s;
-  tmp_pose.euler_rad +=  Eigen::Vector3d(0,0,delta_yaw_2[2]/cos(imu.getTiltAngle()));
- // tmp_pose.euler_rad += delta_yaw_2;
+  tmp_pose.euler_rad +=  Eigen::Vector3d(0,0,delta_yaw_2[2]);
+  //tmp_pose.euler_rad += delta_yaw_2;
   tmp_pose.euler2matrix();
   tmp_pose.euler2quaternion();
   tmp_pose.position[0] +=  delta_pos*cos(tmp_pose.euler_rad[2]);
