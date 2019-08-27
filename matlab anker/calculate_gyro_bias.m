@@ -14,8 +14,8 @@ for i = 1:len
        continue;
    end
    gyro_sum = gyro_sum + imu(i,7);
-   if imu(i,1) - begin_time > 20
-       gyro_bias = gyro_sum/count;
+   if imu(i,1) - begin_time > 40
+       gyro_bias  = gyro_sum/count;
        return;
    end
 end

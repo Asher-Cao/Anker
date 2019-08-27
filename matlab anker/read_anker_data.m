@@ -7,11 +7,11 @@ odo_data = load([file_path,'/odometer_file.cvs']);
 opt_data = load([file_path,'/optical_flow_file.cvs']);
 
 if(mod(imu_data(1,1),1) == 0)
-    imu_data = anker_data_convert('IMU',imu_data);   
+    imu_data = anker_data_convert('IMU',imu_data);  
     odo_data = anker_data_convert('ODO',odo_data);
     opt_data = anker_data_convert('OPT',opt_data);
 end
-
+imu_data(:,5:7) = imu_data(:,5:7)*pi/180;
 end
 
 
