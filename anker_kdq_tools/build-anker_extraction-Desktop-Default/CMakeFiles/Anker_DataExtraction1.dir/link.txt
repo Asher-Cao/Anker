@@ -1,1 +1,0 @@
-/usr/bin/g++      CMakeFiles/Anker_DataExtraction1.dir/src/anker_data_extraction.cpp.o  -o Anker_DataExtraction1 -rdynamic 

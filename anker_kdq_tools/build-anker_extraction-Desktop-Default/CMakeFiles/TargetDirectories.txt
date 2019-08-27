@@ -1,3 +1,0 @@
-/home/kdq/Workspace/Anker/anker_kdq_tools/build-anker_extraction-Desktop-Default/CMakeFiles/edit_cache.dir
-/home/kdq/Workspace/Anker/anker_kdq_tools/build-anker_extraction-Desktop-Default/CMakeFiles/rebuild_cache.dir
-/home/kdq/Workspace/Anker/anker_kdq_tools/build-anker_extraction-Desktop-Default/CMakeFiles/HelloAnker.dir

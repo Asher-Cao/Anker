@@ -1,6 +1,0 @@
-<launch>
-<node pkg="anker_data_publish" name="anker_data_publisher"  type="anker_data_publisher" output="screen">
-</node>
-<node pkg="anker_ekf_pro" name="anker_ekf" type="anker_ekf" output="screen">
-</node>
-</launch>

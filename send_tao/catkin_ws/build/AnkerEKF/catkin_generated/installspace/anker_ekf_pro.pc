@@ -1,8 +1,0 @@
-prefix=/home/kdq/Workspace/Anker/catkin_ws/install
-
-Name: anker_ekf_pro
-Description: Description of anker_ekf_pro
-Version: 0.0.0
-Cflags: -I/home/kdq/Workspace/Anker/catkin_ws/install/include
-Libs: -L/home/kdq/Workspace/Anker/catkin_ws/install/lib 
-Requires: message_runtime
